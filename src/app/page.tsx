@@ -194,9 +194,30 @@ export default function PublicLandingPage() {
   const projectedNewRevenue =
     (projectedLiftLeads - estimatedCurrentLeads) * averageDealValue;
 
-  const handleOpenAuditModal = () => {
+  const handleOpenAuditModal = (audience?: "business" | "agency" | "developer" | React.MouseEvent) => {
     soundEngine.playGlassClick();
     setSubmitSuccess(false);
+    if (typeof audience === "string") {
+      if (audience === "business") {
+        setFormData((prev) => ({
+          ...prev,
+          primaryGoal: "Find Development Partner (New Build / Redesign)",
+          industry: "Growing Business / Enterprise",
+        }));
+      } else if (audience === "agency") {
+        setFormData((prev) => ({
+          ...prev,
+          primaryGoal: "Agency White-Label Development Partnership",
+          industry: "Digital / Creative Agency",
+        }));
+      } else if (audience === "developer") {
+        setFormData((prev) => ({
+          ...prev,
+          primaryGoal: "Developer Partner Network Application",
+          industry: "Technical Developer / Engineer",
+        }));
+      }
+    }
     setAuditModalOpen(true);
   };
 
@@ -943,220 +964,328 @@ export default function PublicLandingPage() {
         </div>
       </section>
 
-      {/* 7. WHO WE SERVE — ASYMMETRIC BENTO GRID (LEFT 1 BOX, RIGHT 2 BOXES UP/DOWN) */}
+      {/* 7. WHO WE HELP — THREE AUDIENCE PARTNERSHIP ECOSYSTEM (PHASE 02) */}
       <section id="verticals" className="relative z-10 py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-200/80">
         <div id="businesses" className="-top-28 relative pointer-events-none" />
         <div id="agencies" className="-top-28 relative pointer-events-none" />
-        <div className="text-center space-y-3 max-w-3xl mx-auto mb-16">
-          <div className="text-xs font-mono font-bold uppercase tracking-widest text-indigo-700">
-            Engineered For High-Ticket Operators
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-            Built For Sectors Where Every Client is Worth $10k to $100k+
+        <div id="developers" className="-top-28 relative pointer-events-none" />
+
+        {/* Section Header */}
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full backdrop-blur-xl bg-white/85 border border-[#8B5CF6]/20 shadow-[0_4px_20px_rgba(139,92,246,0.06)] text-[11px] font-mono tracking-widest text-[#17213D] uppercase font-bold"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
+            <span>ONE ECOSYSTEM. THREE PATHS TO GROW.</span>
+          </motion.div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#17213D] tracking-tight leading-[1.12]">
+            Built for{" "}
+            <span className="bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] bg-clip-text text-transparent">
+              Businesses.{" "}
+            </span>
+            <span className="bg-gradient-to-r from-[#0EA5E9] to-[#0284C7] bg-clip-text text-transparent">
+              Agencies.{" "}
+            </span>
+            <span className="bg-gradient-to-r from-[#10B981] to-[#059669] bg-clip-text text-transparent">
+              Developers.
+            </span>
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            We don&apos;t build generic websites. We build conversion and growth machinery tailored to the exact buyer journeys of high-value deals.
+
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            Whether you&apos;re building a business, scaling an agency, or growing your development career, Hybrid-Ops connects you with the right opportunities, people, and technology.
           </p>
         </div>
 
-        {/* Asymmetric Layout: Left 1 Box (Large/Tall) + Right 2 Boxes (Up and Down) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Left Side: 1 Large Box (Luxury & Boutique Real Estate) */}
-          <div className="lg:col-span-7 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 p-6 md:p-8 flex flex-col justify-between space-y-6 shadow-[0_20px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_25px_60px_rgba(99,102,241,0.14)] hover:border-indigo-300 transition-all duration-300 group">
+        {/* Understated Visual Connection Element (Shared Ecosystem Indicator) */}
+        <div className="mb-12 max-w-3xl mx-auto hidden md:flex items-center justify-between p-3 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-sm text-xs font-mono text-slate-500">
+          <div className="flex items-center gap-2 text-[#8B5CF6] font-bold">
+            <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+            <span>Businesses</span>
+          </div>
+          <div className="flex-1 mx-4 flex items-center justify-center gap-2 text-slate-400">
+            <span className="h-[1px] flex-1 bg-gradient-to-r from-[#8B5CF6]/30 via-[#0EA5E9]/30 to-[#10B981]/30" />
+            <span className="text-[10px] uppercase tracking-wider font-semibold bg-white/90 px-3 py-1 rounded-full border border-slate-200/80 text-slate-700 shadow-2xs flex items-center gap-1.5">
+              <HybridOpsLogo monogramOnly size="sm" className="w-3.5 h-3.5 inline-block" />
+              Unified Collaboration Network
+            </span>
+            <span className="h-[1px] flex-1 bg-gradient-to-r from-[#0EA5E9]/30 via-[#10B981]/30 to-[#10B981]/30" />
+          </div>
+          <div className="flex items-center gap-2 text-[#10B981] font-bold">
+            <span>Developers</span>
+            <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+          </div>
+        </div>
+
+        {/* Three Distinctive Audience Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {/* ======================================================== */}
+          {/* CARD ONE: FOR BUSINESSES (Visual Accent: Purple)         */}
+          {/* ======================================================== */}
+          <div className="rounded-3xl backdrop-blur-2xl bg-white/80 border border-white/95 p-7 sm:p-8 flex flex-col justify-between space-y-6 shadow-[0_20px_50px_rgba(23,33,61,0.06)] hover:shadow-[0_25px_60px_rgba(139,92,246,0.14)] hover:border-[#8B5CF6]/40 transition-all duration-300 group relative overflow-hidden">
+            {/* Top Accent Iridescent Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED]" />
+
             <div className="space-y-5">
-              {/* Card Header */}
+              {/* Card Header & Icon */}
               <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200/80 text-[#8B5CF6] flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
                   <Building2 size={24} />
                 </div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-700 font-bold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/70">
-                  US • CANADA • AUSTRALIA
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#8B5CF6] font-bold bg-purple-50/90 px-3 py-1 rounded-full border border-purple-200/70">
+                  For Businesses
                 </span>
               </div>
 
-              <div>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">
-                  Luxury &amp; Boutique Real Estate
+              {/* Headline & Description */}
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-[#17213D] tracking-tight">
+                  Build Smarter. Grow Faster.
                 </h3>
-                <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-                  Dynamic CMS property portals, Matterport 3D speed tuning, and high-net-worth buyer capture flows without mobile Safari crashes or clunky IDX iFrames.
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Turn your business ideas into powerful digital experiences with reliable development partners and ongoing technical support.
                 </p>
               </div>
 
-              {/* Rich Relevant Visual Container */}
-              <div className="relative h-60 sm:h-72 rounded-2xl overflow-hidden border border-slate-200/80 shadow-inner group/img">
-                <img
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
-                  alt="Luxury Modern Architecture & Real Estate Portal Architecture"
-                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
-                
-                {/* Floating Glass Badges */}
-                <div className="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-mono px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/20 shadow-md">
-                  <Sparkles size={12} className="text-amber-400" />
-                  <span>VIP Private Showing Funnel</span>
+              {/* Custom Interactive Visual Mockup / Interface Badge */}
+              <div className="p-3.5 rounded-2xl bg-gradient-to-br from-purple-50/80 via-white to-purple-50/40 border border-purple-100 shadow-inner space-y-2 font-mono text-[11px]">
+                <div className="flex items-center justify-between text-slate-500 pb-1.5 border-b border-purple-100/80">
+                  <span className="text-slate-600 font-bold">● ARCHITECTURE STATUS</span>
+                  <span className="text-[#8B5CF6] font-bold">100% PRODUCTION READY</span>
                 </div>
-                
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                  <div className="bg-white/95 backdrop-blur-md text-slate-900 text-[11px] font-mono font-bold px-3 py-1.5 rounded-lg border border-white/80 shadow-md flex items-center gap-1.5">
-                    <Zap size={12} className="text-emerald-600 fill-emerald-600" />
-                    <span>0.68s Sub-Second LCP</span>
-                  </div>
-                  <span className="text-xs font-mono text-white/90 bg-slate-900/60 px-2.5 py-1 rounded-md backdrop-blur-sm">
-                    Dynamic CMS Collection
-                  </span>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>&gt; Custom CMS Collections</span>
+                  <span className="text-emerald-600 font-bold">SUB-SECOND LCP</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>&gt; Business Automation</span>
+                  <span className="text-[#8B5CF6] font-bold">API INTEGRATED</span>
                 </div>
               </div>
 
-              {/* Feature Checklist */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                  <span>VIP private showing request funnels</span>
+              {/* Benefits Checklist */}
+              <div className="space-y-2.5 pt-1">
+                <div className="text-[11px] font-mono uppercase font-bold text-slate-400 tracking-wider">
+                  Core Capabilities Delivered:
                 </div>
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                  <span>Sub-second hero video &amp; galleries</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                  <span>Instant SMS lead routing to brokers</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                  <span>Zero layout shift on mobile Safari</span>
-                </div>
+                <ul className="space-y-2 text-xs text-slate-700 font-medium">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+                    <span>Custom website development</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+                    <span>Wix Studio and advanced Velo solutions</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+                    <span>Website redesign and optimization</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+                    <span>Business automation and integrations</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+                    <span>Ongoing website maintenance</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            {/* Bottom Outcome Bar */}
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-500">Typical Deal Protected</span>
-              <span className="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200/60">
-                $2.5M+ Property Value
-              </span>
+            {/* CTA & Supporting Microcopy */}
+            <div className="pt-5 border-t border-slate-100 space-y-2.5">
+              <button
+                onClick={() => handleOpenAuditModal("business")}
+                className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] hover:from-[#7C3AED] hover:to-[#6D28D9] shadow-[0_4px_20px_rgba(139,92,246,0.3)] hover:shadow-[0_6px_25px_rgba(139,92,246,0.45)] transition-all cursor-pointer active:scale-[0.98]"
+              >
+                <span>Find Your Development Partner</span>
+                <ArrowRight size={14} />
+              </button>
+              <p className="text-center text-[11px] text-slate-500 font-mono">
+                Let&apos;s build something that moves your business forward.
+              </p>
             </div>
           </div>
 
-          {/* Right Side: 2 Boxes (Up and Down) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Box 1 (Up): Creative & Digital Agencies */}
-            <div className="flex-1 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 p-6 md:p-7 flex flex-col justify-between space-y-4 shadow-[0_16px_40px_rgba(139,92,246,0.06)] hover:shadow-[0_20px_50px_rgba(139,92,246,0.12)] hover:border-violet-300 transition-all duration-300 group">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-violet-50 border border-violet-200 text-violet-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <Briefcase size={20} />
-                  </div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-violet-700 font-bold bg-violet-50 px-2.5 py-0.5 rounded-full border border-violet-200/60">
-                    US • UNITED KINGDOM
-                  </span>
-                </div>
+          {/* ======================================================== */}
+          {/* CARD TWO: FOR DIGITAL AGENCIES (Visual Accent: Electric Blue) */}
+          {/* ======================================================== */}
+          <div className="rounded-3xl backdrop-blur-2xl bg-white/80 border border-white/95 p-7 sm:p-8 flex flex-col justify-between space-y-6 shadow-[0_20px_50px_rgba(23,33,61,0.06)] hover:shadow-[0_25px_60px_rgba(14,165,233,0.14)] hover:border-[#0EA5E9]/40 transition-all duration-300 group relative overflow-hidden">
+            {/* Top Accent Iridescent Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0EA5E9] to-[#0284C7]" />
 
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900">
-                    Creative &amp; Digital Agencies
-                  </h3>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                    White-label Wix Studio &amp; custom Velo coding bandwidth. When founders run out of engineering hours or need automated outbound pipelines.
-                  </p>
+            <div className="space-y-5">
+              {/* Card Header & Icon */}
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200/80 text-[#0EA5E9] flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+                  <Briefcase size={24} />
                 </div>
-
-                {/* Relevant Image Banner */}
-                <div className="relative h-32 rounded-xl overflow-hidden border border-slate-200/80 shadow-sm group/thumb">
-                  <img
-                    src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80"
-                    alt="Creative Agency Digital Workflow & Wix Studio Bandwidth"
-                    className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-white bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                      White-Label Velo Bandwidth
-                    </span>
-                    <span className="text-[10px] font-mono text-violet-200 bg-violet-950/70 px-2 py-0.5 rounded backdrop-blur-sm">
-                      AI Teardown Pitch
-                    </span>
-                  </div>
-                </div>
-
-                <ul className="space-y-1.5 text-xs text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-violet-600 shrink-0" />
-                    <span>White-label Wix Studio development</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-violet-600 shrink-0" />
-                    <span>Automated B2B prospect discovery pipeline</span>
-                  </li>
-                </ul>
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#0EA5E9] font-bold bg-sky-50/90 px-3 py-1 rounded-full border border-sky-200/70">
+                  For Digital Agencies
+                </span>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-500">Bandwidth Saved</span>
-                <span className="text-violet-700 font-bold bg-violet-50 px-2 py-0.5 rounded">
-                  120+ Hours / Mo
-                </span>
+              {/* Headline & Description */}
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-[#17213D] tracking-tight">
+                  Scale Your Agency Without Scaling Overhead.
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Expand your service capabilities with dependable white-label development support and flexible technical collaboration.
+                </p>
+              </div>
+
+              {/* Custom Interactive Visual Mockup / Interface Badge */}
+              <div className="p-3.5 rounded-2xl bg-gradient-to-br from-sky-50/80 via-white to-sky-50/40 border border-sky-100 shadow-inner space-y-2 font-mono text-[11px]">
+                <div className="flex items-center justify-between text-slate-500 pb-1.5 border-b border-sky-100/80">
+                  <span className="text-slate-600 font-bold">● WHITE-LABEL BANDWIDTH</span>
+                  <span className="text-[#0EA5E9] font-bold">FLEXIBLE RETRACT / EXPAND</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>&gt; Velo &amp; Custom Code</span>
+                  <span className="text-[#0EA5E9] font-bold">UNDER YOUR BRAND</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>&gt; Overflow Sprint Capacity</span>
+                  <span className="text-emerald-600 font-bold">ON-DEMAND QA</span>
+                </div>
+              </div>
+
+              {/* Benefits Checklist */}
+              <div className="space-y-2.5 pt-1">
+                <div className="text-[11px] font-mono uppercase font-bold text-slate-400 tracking-wider">
+                  Partnership Advantages:
+                </div>
+                <ul className="space-y-2 text-xs text-slate-700 font-medium">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#0EA5E9] shrink-0 mt-0.5" />
+                    <span>White-label development</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#0EA5E9] shrink-0 mt-0.5" />
+                    <span>Overflow project support</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#0EA5E9] shrink-0 mt-0.5" />
+                    <span>Wix and custom development expertise</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#0EA5E9] shrink-0 mt-0.5" />
+                    <span>Flexible collaboration</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#0EA5E9] shrink-0 mt-0.5" />
+                    <span>Reliable technical execution</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            {/* Box 2 (Down): High-Ticket Local Service Brands */}
-            <div className="flex-1 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 p-6 md:p-7 flex flex-col justify-between space-y-4 shadow-[0_16px_40px_rgba(6,182,212,0.06)] hover:shadow-[0_20px_50px_rgba(6,182,212,0.12)] hover:border-cyan-300 transition-all duration-300 group">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <Target size={20} />
-                  </div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-800 font-bold bg-cyan-50 px-2.5 py-0.5 rounded-full border border-cyan-200/60">
-                    LOCAL LEAD MACHINES
-                  </span>
-                </div>
+            {/* CTA & Supporting Microcopy */}
+            <div className="pt-5 border-t border-slate-100 space-y-2.5">
+              <button
+                onClick={() => handleOpenAuditModal("agency")}
+                className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#0EA5E9] to-[#0284C7] hover:from-[#0284C7] hover:to-[#0369A1] shadow-[0_4px_20px_rgba(14,165,233,0.3)] hover:shadow-[0_6px_25px_rgba(14,165,233,0.45)] transition-all cursor-pointer active:scale-[0.98]"
+              >
+                <span>Explore Agency Partnerships</span>
+                <ArrowRight size={14} />
+              </button>
+              <p className="text-center text-[11px] text-slate-500 font-mono">
+                Deliver more projects without building a larger in-house team.
+              </p>
+            </div>
+          </div>
 
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900">
-                    High-Ticket Local Services
-                  </h3>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Architectural studios, private wealth advisory, and cosmetic surgery. Conversion-focused local SEO with frictionless booking.
-                  </p>
-                </div>
+          {/* ======================================================== */}
+          {/* CARD THREE: FOR DEVELOPERS (Visual Accent: Mint Green)   */}
+          {/* ======================================================== */}
+          <div className="rounded-3xl backdrop-blur-2xl bg-white/80 border border-white/95 p-7 sm:p-8 flex flex-col justify-between space-y-6 shadow-[0_20px_50px_rgba(23,33,61,0.06)] hover:shadow-[0_25px_60px_rgba(16,185,129,0.14)] hover:border-[#10B981]/40 transition-all duration-300 group relative overflow-hidden md:col-span-2 lg:col-span-1">
+            {/* Top Accent Iridescent Glow */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#10B981] to-[#059669]" />
 
-                {/* Relevant Image Banner */}
-                <div className="relative h-32 rounded-xl overflow-hidden border border-slate-200/80 shadow-sm group/thumb">
-                  <img
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
-                    alt="High-Ticket Local Service Consultation Space"
-                    className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-white bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                      Frictionless Booking
-                    </span>
-                    <span className="text-[10px] font-mono text-cyan-200 bg-cyan-950/70 px-2 py-0.5 rounded backdrop-blur-sm">
-                      Local Intent SEO
-                    </span>
-                  </div>
+            <div className="space-y-5">
+              {/* Card Header & Icon */}
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-[#10B981] flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+                  <Code2 size={24} />
                 </div>
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#10B981] font-bold bg-emerald-50/90 px-3 py-1 rounded-full border border-emerald-200/70">
+                  For Developers
+                </span>
+              </div>
 
-                <ul className="space-y-1.5 text-xs text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-cyan-700 shrink-0" />
-                    <span>Instant consultation booking engine</span>
+              {/* Headline & Description */}
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-[#17213D] tracking-tight">
+                  Your Skills. More Opportunities.
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Connect with businesses and agencies looking for skilled development professionals and meaningful long-term collaborations.
+                </p>
+              </div>
+
+              {/* Custom Interactive Visual Mockup / Interface Badge */}
+              <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-50/80 via-white to-emerald-50/40 border border-emerald-100 shadow-inner space-y-2 font-mono text-[11px]">
+                <div className="flex items-center justify-between text-slate-500 pb-1.5 border-b border-emerald-100/80">
+                  <span className="text-slate-600 font-bold">● TALENT NETWORK</span>
+                  <span className="text-[#10B981] font-bold">VETTED PEER COMMUNITY</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>&gt; Modern Stack Focus</span>
+                  <span className="text-slate-900 font-bold">WIX STUDIO • VELO • NEXT</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>&gt; Client Engagements</span>
+                  <span className="text-[#10B981] font-bold">DIRECT COLLABORATION</span>
+                </div>
+              </div>
+
+              {/* Benefits Checklist */}
+              <div className="space-y-2.5 pt-1">
+                <div className="text-[11px] font-mono uppercase font-bold text-slate-400 tracking-wider">
+                  Partner Opportunities:
+                </div>
+                <ul className="space-y-2 text-xs text-slate-700 font-medium">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#10B981] shrink-0 mt-0.5" />
+                    <span>Relevant project opportunities</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={13} className="text-cyan-700 shrink-0" />
-                    <span>Zero missed mobile form submissions</span>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#10B981] shrink-0 mt-0.5" />
+                    <span>Professional collaboration</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#10B981] shrink-0 mt-0.5" />
+                    <span>Work with agencies and businesses</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#10B981] shrink-0 mt-0.5" />
+                    <span>Showcase your technical expertise</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 size={15} className="text-[#10B981] shrink-0 mt-0.5" />
+                    <span>Build long-term partnerships</span>
                   </li>
                 </ul>
               </div>
+            </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-500">Speed to Response</span>
-                <span className="text-cyan-800 font-bold bg-cyan-50 px-2 py-0.5 rounded">
-                  &lt; 60 Seconds
-                </span>
-              </div>
+            {/* CTA & Supporting Microcopy */}
+            <div className="pt-5 border-t border-slate-100 space-y-2.5">
+              <button
+                onClick={() => handleOpenAuditModal("developer")}
+                className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#10B981] to-[#059669] hover:from-[#059669] hover:to-[#047857] shadow-[0_4px_20px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_25px_rgba(16,185,129,0.45)] transition-all cursor-pointer active:scale-[0.98]"
+              >
+                <span>Become a Developer Partner</span>
+                <ArrowRight size={14} />
+              </button>
+              <p className="text-center text-[11px] text-slate-500 font-mono">
+                Bring your skills into a network built around collaboration.
+              </p>
             </div>
           </div>
         </div>
