@@ -12,6 +12,14 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        brand: {
+          navy: "#17213D",
+          purple: "#8B5CF6",
+          blue: "#0EA5E9",
+          mint: "#10B981",
+          lavender: "#F5F0FF",
+          cyan: "#ECF8FF",
+        },
         ocean: {
           950: "#020712",
           900: "#051124",

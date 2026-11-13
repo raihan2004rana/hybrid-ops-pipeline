@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HYBRID.OPS | High-Converting Agency & Automated Growth Infrastructure",
+  title: "Hybrid-Ops | Strategic Technology & Development Partnerships",
   description:
-    "Turn your static website into a 24/7 client-acquisition machine. Bespoke Wix Studio engineering, Velo development, and automated B2B lead generation pipelines for real estate, creative agencies, and high-ticket brands.",
+    "Hybrid-Ops connects ambitious businesses and digital agencies with skilled development partners to build, scale, and maintain exceptional digital experiences.",
+  icons: {
+    icon: "/images/hybrid-ops-logo.png",
+  },
 };
 
 export default function RootLayout({

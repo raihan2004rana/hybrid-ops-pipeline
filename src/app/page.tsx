@@ -40,6 +40,7 @@ import Link from "next/link";
 import Image from "next/image";
 import confetti from "canvas-confetti";
 import { soundEngine } from "@/lib/audioAlert";
+import HybridOpsLogo from "@/components/HybridOpsLogo";
 
 interface CaseStudy {
   id: string;
@@ -168,9 +169,6 @@ export default function PublicLandingPage() {
 
   // Interactive video walkthrough chapter selector (0, 1, 2)
   const [activeVideoChapter, setActiveVideoChapter] = useState(0);
-
-  // Interactive comparison toggle state (after: Hybrid.Ops, before: Legacy Site)
-  const [previewMode, setPreviewMode] = useState<"after" | "before">("after");
 
   // Interactive ROI Calculator State
   const [monthlyVisitors, setMonthlyVisitors] = useState(6500);
@@ -350,60 +348,58 @@ export default function PublicLandingPage() {
       </div>
 
       {/* 2. FLOATING FROSTED GLASS NAVBAR */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-3.5 backdrop-blur-2xl bg-white/75 border-b border-white/90 shadow-[0_4px_30px_rgba(99,102,241,0.05)] transition-all">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 md:px-8 py-3.5 backdrop-blur-2xl bg-white/80 border-b border-white/80 shadow-[0_4px_30px_rgba(23,33,61,0.03)] transition-all">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-cyan-500 p-[1.5px] shadow-[0_4px_16px_rgba(99,102,241,0.25)]">
-              <div className="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-                <Sparkles size={18} className="text-indigo-600 group-hover:rotate-12 transition-transform" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-black text-base tracking-wider bg-gradient-to-r from-violet-800 via-indigo-700 to-cyan-700 bg-clip-text text-transparent">
-                HYBRID<span className="text-indigo-500">.</span>OPS
-              </span>
-              <span className="text-[9px] font-mono tracking-widest text-slate-500 uppercase font-semibold">
-                Agency &amp; Growth Studio
-              </span>
-            </div>
+          <Link href="/" className="flex items-center gap-2 group">
+            <HybridOpsLogo size="md" />
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-7 text-xs font-semibold text-slate-600">
-            <a href="#services" className="hover:text-indigo-600 transition">Services</a>
-            <a href="#verticals" className="hover:text-indigo-600 transition">Who We Help</a>
-            <a href="#portfolio" className="hover:text-indigo-600 transition">Featured Work</a>
-            <a href="#comparison" className="hover:text-indigo-600 transition">Why Us</a>
-            <a href="#calculator" className="hover:text-indigo-600 transition">ROI Simulator</a>
-            <a href="#faq" className="hover:text-indigo-600 transition">FAQ</a>
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-semibold text-slate-600">
+            <a href="#" className="hover:text-[#17213D] transition-colors">Home</a>
+            <a href="#businesses" className="hover:text-[#17213D] transition-colors">For Businesses</a>
+            <a href="#agencies" className="hover:text-[#17213D] transition-colors">For Agencies</a>
+            <a href="#developers" className="hover:text-[#17213D] transition-colors">For Developers</a>
+            <a href="#services" className="hover:text-[#17213D] transition-colors">Services</a>
+            <a href="#portfolio" className="hover:text-[#17213D] transition-colors">Our Work</a>
           </div>
 
           {/* Right Action CTAs */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             {/* Discreet Admin Login Button */}
             <Link
               href="/dashboard"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono text-slate-600 hover:text-indigo-700 hover:bg-white/80 border border-slate-200/80 hover:border-indigo-200 transition shadow-2xs"
+              className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold text-slate-500 hover:text-[#8B5CF6] hover:bg-white/90 border border-slate-200/70 hover:border-purple-200 transition shadow-2xs"
               title="Protected Admin Command Center"
             >
-              <Lock size={12} className="text-indigo-600" />
-              <span className="hidden sm:inline font-bold">Admin Portal</span>
+              <Lock size={12} className="text-[#8B5CF6]" />
+              <span>Admin</span>
             </Link>
 
-            {/* Primary Audit CTA */}
+            {/* Secondary CTA: Explore Partnerships */}
+            <a
+              href="#services"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-[#17213D] bg-white/80 hover:bg-white border border-slate-200/80 hover:border-purple-300 shadow-sm transition"
+            >
+              <span>Explore Partnerships</span>
+            </a>
+
+            {/* Primary CTA: Let's Partner */}
             <button
               onClick={handleOpenAuditModal}
-              className="relative group overflow-hidden flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white glass-button-primary shadow-[0_6px_25px_rgba(99,102,241,0.28)] cursor-pointer"
+              className="relative group overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#0EA5E9] hover:from-[#7C3AED] hover:to-[#0284C7] shadow-[0_4px_20px_rgba(139,92,246,0.3)] hover:shadow-[0_6px_25px_rgba(139,92,246,0.45)] transition-all cursor-pointer active:scale-[0.98]"
             >
-              <Sparkles size={14} className="text-emerald-200 animate-pulse" />
-              <span>Book Free Audit</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping" />
+              <span>Let&apos;s Partner</span>
+              <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
             </button>
 
             {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100/60"
+              className="lg:hidden p-2 text-slate-700 hover:text-slate-950 rounded-xl hover:bg-slate-100/70 transition"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -417,129 +413,145 @@ export default function PublicLandingPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden px-4 pt-4 pb-6 space-y-3 border-t border-slate-200/80 mt-3 bg-white/95 rounded-2xl shadow-xl"
+              className="lg:hidden px-4 pt-4 pb-6 space-y-3 border-t border-slate-200/80 mt-3 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl"
             >
+              <a
+                href="#"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-sm font-semibold text-slate-700 hover:text-[#17213D] py-1"
+              >
+                Home
+              </a>
+              <a
+                href="#businesses"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-sm font-semibold text-slate-700 hover:text-[#17213D] py-1"
+              >
+                For Businesses
+              </a>
+              <a
+                href="#agencies"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-sm font-semibold text-slate-700 hover:text-[#17213D] py-1"
+              >
+                For Agencies
+              </a>
+              <a
+                href="#developers"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-sm font-semibold text-slate-700 hover:text-[#17213D] py-1"
+              >
+                For Developers
+              </a>
               <a
                 href="#services"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-semibold text-slate-700 py-1"
+                className="block text-sm font-semibold text-slate-700 hover:text-[#17213D] py-1"
               >
-                Services &amp; Capabilities
-              </a>
-              <a
-                href="#verticals"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-semibold text-slate-700 py-1"
-              >
-                Target Verticals
+                Services
               </a>
               <a
                 href="#portfolio"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-semibold text-slate-700 py-1"
+                className="block text-sm font-semibold text-slate-700 hover:text-[#17213D] py-1"
               >
-                Featured Transformations
+                Our Work
               </a>
-              <a
-                href="#comparison"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-semibold text-slate-700 py-1"
-              >
-                Why Hybrid.Ops vs. Traditional
-              </a>
-              <a
-                href="#calculator"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-semibold text-slate-700 py-1"
-              >
-                Interactive Revenue Calculator
-              </a>
-              <a
-                href="#faq"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-semibold text-slate-700 py-1"
-              >
-                Frequently Asked Questions
-              </a>
-              <div className="pt-2 border-t border-slate-200 flex items-center justify-between">
-                <Link
-                  href="/dashboard"
-                  className="text-xs font-mono font-bold text-indigo-700 flex items-center gap-1.5"
+              <div className="pt-3 border-t border-slate-200 flex flex-col gap-2.5">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleOpenAuditModal();
+                  }}
+                  className="w-full py-3 rounded-xl text-center text-xs font-bold text-white bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#0EA5E9]"
                 >
-                  <Lock size={12} />
-                  <span>Admin Command Center</span>
-                </Link>
+                  Let&apos;s Partner
+                </button>
+                <div className="flex items-center justify-between pt-1">
+                  <a
+                    href="#services"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-xs font-semibold text-slate-600 hover:text-slate-900"
+                  >
+                    Explore Partnerships &rarr;
+                  </a>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-xs font-mono font-bold text-[#8B5CF6] flex items-center gap-1"
+                  >
+                    <Lock size={12} />
+                    <span>Admin Portal</span>
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </nav>
 
-      {/* 3. HERO SECTION — BRIGHT AIRY FROSTED GLASS & EDITORIAL HEADLINE */}
+      {/* 3. HERO SECTION — CONNECTED PARTNERSHIP ECOSYSTEM (LIGHT-MODE FROSTED GLASS) */}
       <section className="relative z-10 pt-36 md:pt-44 pb-20 md:pb-28 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="text-center space-y-6 max-w-4xl mx-auto">
-          {/* Target Audience Geographic Pill Badge */}
+          {/* Trust-Oriented Eyebrow Badge */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full backdrop-blur-xl bg-white/80 border border-white shadow-[0_4px_20px_rgba(99,102,241,0.06)] text-xs font-mono text-slate-700"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full backdrop-blur-xl bg-white/85 border border-[#8B5CF6]/25 shadow-[0_4px_20px_rgba(139,92,246,0.08)] text-[11px] font-mono tracking-widest text-[#17213D] uppercase font-bold"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            <span className="font-bold tracking-wide text-slate-800">
-              FOR REAL ESTATE, CREATIVE AGENCIES &amp; LOCAL BRANDS (US • UK • CA • AU)
-            </span>
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+            <span>YOUR STRATEGIC TECHNOLOGY PARTNER</span>
           </motion.div>
 
-          {/* Outcome-Driven Headline */}
+          {/* Headline with refined purple-to-blue gradient */}
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-slate-900"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-[#17213D]"
           >
-            Turn Your Static Website Into a{" "}
-            <span className="bg-gradient-to-r from-violet-700 via-indigo-600 to-cyan-600 bg-clip-text text-transparent">
-              24/7 Client Acquisition Machine
+            Your Growth. Our Technology.{" "}
+            <span className="bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#0EA5E9] bg-clip-text text-transparent">
+              One Powerful Partnership.
             </span>
-            .
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Supporting Description */}
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed"
           >
-            We eliminate leaky conversion funnels, engineer ultra-fast bespoke Wix Studio architectures,
-            and deploy automated B2B lead generation pipelines that deliver qualified opportunities on autopilot.
+            Hybrid-Ops connects ambitious businesses and digital agencies with skilled development partners to build, scale, and maintain exceptional digital experiences.
           </motion.p>
 
-          {/* Dual CTAs & Video Walkthrough Trigger */}
+          {/* Dual Audience-Focused CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
           >
+            {/* Primary: Find Your Development Partner */}
             <button
               onClick={handleOpenAuditModal}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl font-bold text-sm text-white glass-button-primary shadow-[0_10px_35px_rgba(99,102,241,0.32)] cursor-pointer"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-white bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#0EA5E9] hover:from-[#7C3AED] hover:to-[#0284C7] shadow-[0_10px_35px_rgba(139,92,246,0.35)] hover:shadow-[0_14px_45px_rgba(139,92,246,0.5)] transition-all cursor-pointer group active:scale-[0.98]"
             >
-              <Zap size={16} className="text-emerald-200" />
-              <span>Get Your Free Website &amp; Funnel Teardown</span>
-              <ArrowRight size={16} />
+              <Sparkles size={16} className="text-[#10B981]" />
+              <span>Find Your Development Partner</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
 
+            {/* Secondary: Become a Developer Partner */}
             <button
-              onClick={handleOpenVideoModal}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl font-bold text-sm text-slate-700 bg-white/85 hover:bg-white border border-white hover:border-indigo-200 shadow-[0_6px_25px_rgba(99,102,241,0.06)] transition-all cursor-pointer group"
+              onClick={handleOpenAuditModal}
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-7 py-4 rounded-full font-bold text-sm text-[#17213D] bg-white/90 hover:bg-white border border-slate-200/90 hover:border-[#8B5CF6]/50 shadow-[0_6px_25px_rgba(23,33,61,0.06)] hover:shadow-[0_8px_30px_rgba(139,92,246,0.12)] transition-all cursor-pointer group active:scale-[0.98]"
             >
-              <div className="w-6 h-6 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Play size={11} className="fill-indigo-600 translate-x-[0.5px]" />
-              </div>
-              <span>Watch 60s System Demo</span>
+              <Code2 size={16} className="text-[#8B5CF6]" />
+              <span>Become a Developer Partner</span>
+              <ChevronRight size={16} className="text-slate-400 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </motion.div>
 
@@ -548,222 +560,261 @@ export default function PublicLandingPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-slate-200/80 text-left"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-10 border-t border-slate-200/80 text-left"
           >
-            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(99,102,241,0.05)]">
-              <div className="text-xl md:text-2xl font-black text-indigo-700 font-mono">120+</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">High-Ticket Projects</div>
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(23,33,61,0.04)]">
+              <div className="text-xl md:text-2xl font-black text-[#8B5CF6] font-mono">99.8%</div>
+              <div className="text-xs font-bold text-slate-800 mt-0.5">Match Accuracy</div>
+              <div className="text-[10px] text-slate-500 font-mono">Skill &amp; culture alignment</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(99,102,241,0.05)]">
-              <div className="text-xl md:text-2xl font-black text-emerald-600 font-mono">+45%</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">Average Lead Lift</div>
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(23,33,61,0.04)]">
+              <div className="text-xl md:text-2xl font-black text-[#0EA5E9] font-mono">&lt; 48h</div>
+              <div className="text-xs font-bold text-slate-800 mt-0.5">Deployment Speed</div>
+              <div className="text-[10px] text-slate-500 font-mono">Zero onboarding friction</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(99,102,241,0.05)]">
-              <div className="text-xl md:text-2xl font-black text-cyan-600 font-mono">&lt; 0.8s</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">Sub-Second Mobile LCP</div>
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(23,33,61,0.04)]">
+              <div className="text-xl md:text-2xl font-black text-[#10B981] font-mono">100%</div>
+              <div className="text-xs font-bold text-slate-800 mt-0.5">White-Label Delivery</div>
+              <div className="text-[10px] text-slate-500 font-mono">Under your agency brand</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(99,102,241,0.05)]">
-              <div className="text-xl md:text-2xl font-black text-amber-500 font-mono">4.9 ★</div>
-              <div className="text-xs font-bold text-slate-700 mt-0.5">A+ Client Rating</div>
+            <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(23,33,61,0.04)]">
+              <div className="text-xl md:text-2xl font-black text-[#17213D] font-mono">Top 3%</div>
+              <div className="text-xs font-bold text-slate-800 mt-0.5">Vetted Standard</div>
+              <div className="text-[10px] text-slate-500 font-mono">Wix Studio, Velo &amp; Next.js</div>
             </div>
           </motion.div>
         </div>
 
-        {/* 4. HERO 3D-STYLED FROSTED GLASS MEDIA SHOWCASE WITH FLOATING MICRO-BADGES */}
+        {/* 4. HERO VISUAL CONCEPT — CONNECTED PARTNERSHIP ECOSYSTEM (LIGHT-MODE GLASS CANVAS) */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
           className="mt-14 max-w-5xl mx-auto relative"
         >
-          {/* Main Media Showcase Glass Card */}
-          <div className="rounded-3xl backdrop-blur-2xl bg-white/75 border border-white/95 p-4 sm:p-6 md:p-8 shadow-[0_25px_70px_rgba(99,102,241,0.08),inset_0_1px_2px_rgba(255,255,255,1)] relative overflow-hidden">
-            {/* Top iridescent subtle sheen */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent" />
+          {/* Main Ecosystem Frosted Glass Canvas */}
+          <div className="rounded-3xl backdrop-blur-2xl bg-white/80 border border-white/95 p-6 sm:p-10 shadow-[0_25px_70px_rgba(23,33,61,0.08),inset_0_1px_2px_rgba(255,255,255,1)] relative overflow-hidden min-h-[500px] md:min-h-[540px] flex flex-col justify-between">
+            {/* Ambient Background Glow Orbs inside showcase */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-[#8B5CF6]/15 via-[#0EA5E9]/15 to-[#10B981]/15 blur-[80px] pointer-events-none" />
 
-            {/* Showcase Header & Interactive Mode Toggle */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/70">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-                  <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-                    Engineered Conversion Telemetry &amp; Live Showcase
-                  </h2>
+            {/* Subtle SVG Connection Pathways (Desktop/Tablet) */}
+            <svg
+              className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="lineGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#0EA5E9" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.4" />
+                </linearGradient>
+                <linearGradient id="lineGradRight" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#0EA5E9" stopOpacity="0.4" />
+                </linearGradient>
+                <linearGradient id="lineGradBottom" x1="50%" y1="100%" x2="50%" y2="0%">
+                  <stop offset="0%" stopColor="#10B981" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.4" />
+                </linearGradient>
+              </defs>
+
+              {/* Path from Businesses (Top-Left) to Center Hub */}
+              <path
+                d="M 230 140 C 340 160, 400 230, 512 260"
+                stroke="url(#lineGradLeft)"
+                strokeWidth="2.5"
+                strokeDasharray="6 6"
+                fill="none"
+                className="opacity-70 animate-pulse"
+              />
+
+              {/* Path from Agencies (Top-Right) to Center Hub */}
+              <path
+                d="M 790 140 C 680 160, 620 230, 512 260"
+                stroke="url(#lineGradRight)"
+                strokeWidth="2.5"
+                strokeDasharray="6 6"
+                fill="none"
+                className="opacity-70 animate-pulse"
+              />
+
+              {/* Path from Developers (Bottom-Center) to Center Hub */}
+              <path
+                d="M 512 430 C 512 370, 512 320, 512 290"
+                stroke="url(#lineGradBottom)"
+                strokeWidth="2.5"
+                strokeDasharray="6 6"
+                fill="none"
+                className="opacity-70 animate-pulse"
+              />
+            </svg>
+
+            {/* Central Hybrid-Ops Identity Core (Desktop: absolute center, Mobile: top center) */}
+            <div className="relative md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-20 flex flex-col items-center justify-center text-center my-6 md:my-0">
+              {/* Outer Pulsing Ring */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute w-36 h-36 rounded-full bg-gradient-to-tr from-[#8B5CF6]/20 to-[#0EA5E9]/20 animate-pulse-slow blur-md" />
+                <div className="relative w-28 h-28 rounded-full bg-white/95 backdrop-blur-2xl border-2 border-white shadow-[0_12px_40px_rgba(23,33,61,0.12)] flex items-center justify-center p-3">
+                  <HybridOpsLogo size="md" monogramOnly={true} className="w-14 h-14" />
                 </div>
-                <p className="text-xs text-slate-600 mt-1">
-                  Interactive side-by-side comparison between legacy web agency bloat and our hybrid infrastructure
-                </p>
+
+                {/* Orbiting Tech Particles */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-36 h-36 rounded-full border border-dashed border-[#8B5CF6]/40 pointer-events-none"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#10B981] shadow-[0_0_10px_#10B981]" />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0EA5E9] shadow-[0_0_8px_#0EA5E9]" />
+                </motion.div>
               </div>
 
-              {/* Mode Toggle Switch */}
-              <div className="flex items-center bg-slate-100/80 border border-slate-200/80 p-1 rounded-2xl self-start sm:self-auto text-xs font-mono shadow-2xs">
-                <button
-                  onClick={() => setPreviewMode("before")}
-                  className={`px-3 py-1.5 rounded-xl transition cursor-pointer font-bold ${
-                    previewMode === "before"
-                      ? "bg-rose-100 text-rose-800 shadow-xs border border-rose-200"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  Legacy Slow Site (5.8s LCP)
-                </button>
-                <button
-                  onClick={() => setPreviewMode("after")}
-                  className={`px-3.5 py-1.5 rounded-xl transition cursor-pointer font-bold ${
-                    previewMode === "after"
-                      ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-xs"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  Hybrid.Ops Engine (0.68s)
-                </button>
+              {/* Center Identity Labels */}
+              <div className="mt-3.5 space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-slate-200/80 shadow-xs text-[11px] font-mono font-bold text-[#17213D]">
+                  <span className="w-2 h-2 rounded-full bg-[#10B981] animate-ping" />
+                  <span>HYBRID-OPS ECOSYSTEM</span>
+                </div>
+                <div className="text-[11px] text-slate-500 font-mono">
+                  Connecting Businesses • Agencies • Developers
+                </div>
               </div>
             </div>
 
-            {/* Main Interactive Stage */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 items-center">
-              {/* Left Column: Visual Media Preview with Pulsing Play Trigger */}
-              <div className="md:col-span-7 relative rounded-2xl overflow-hidden border border-slate-200 shadow-md group">
-                <div className="relative aspect-[16/10] w-full">
-                  <Image
-                    src={
-                      previewMode === "after"
-                        ? "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
-                        : "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85"
-                    }
-                    alt="Agency Architecture Preview"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 600px"
-                  />
-                  {/* Frosted gradient glass overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/10 to-transparent" />
-
-                  {/* Pulsing Watch Demo Play Button */}
-                  <button
-                    onClick={handleOpenVideoModal}
-                    className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-white/90 backdrop-blur-xl border border-white text-indigo-600 shadow-[0_12px_40px_rgba(0,0,0,0.3)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all cursor-pointer z-20 group/btn"
-                    title="Watch 60-second system demo walkthrough"
-                  >
-                    <Play size={22} className="fill-indigo-600 translate-x-[2px]" />
-                    <span className="absolute -bottom-8 whitespace-nowrap text-[11px] font-bold font-mono text-white bg-slate-900/80 px-2 py-0.5 rounded-md backdrop-blur-md">
-                      Watch 60s Demo
-                    </span>
-                  </button>
-
-                  {/* Bottom Image Tag Bar */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-white font-mono">
-                    <span className="bg-slate-900/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20">
-                      {previewMode === "after" ? "⚡ Wix Studio Velo + Edge CDN" : "⚠️ Legacy Bloated WordPress Theme"}
-                    </span>
-                    <span className="bg-emerald-500/90 text-white font-bold px-2 py-1 rounded-lg">
-                      {previewMode === "after" ? "0.68s LCP" : "5.82s Latency"}
-                    </span>
+            {/* Three Connected Ecosystem Cards */}
+            {/* Desktop: Absolute Triad Layout; Mobile: Stacked Vertical Grid */}
+            <div className="grid grid-cols-1 md:block gap-4 relative z-20 w-full">
+              {/* Card 1: Businesses (Top-Left on Desktop) */}
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="md:absolute md:top-4 md:left-4 lg:left-6 md:w-64 lg:w-72 rounded-2xl backdrop-blur-xl bg-white/90 border border-white/95 p-4 sm:p-5 shadow-[0_12px_35px_rgba(14,165,233,0.12)] hover:shadow-[0_16px_45px_rgba(14,165,233,0.18)] transition-all group"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 rounded-xl bg-sky-50 border border-sky-200 text-[#0EA5E9] flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Building2 size={18} />
                   </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0EA5E9] bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200/60">
+                    FOR BUSINESSES
+                  </span>
                 </div>
-              </div>
-
-              {/* Right Column: Comparative Metrics & Live Telemetry Feed */}
-              <div className="md:col-span-5 space-y-4">
-                {previewMode === "before" ? (
-                  <div className="space-y-3.5">
-                    <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-900 space-y-1.5">
-                      <div className="flex items-center justify-between font-mono font-bold text-rose-800">
-                        <span>CRITICAL CONVERSION LEAK</span>
-                        <span>5.8s LCP</span>
-                      </div>
-                      <p className="text-[11px] text-rose-700 leading-relaxed">
-                        Un-optimized hero videos crash on iOS Safari with internal 500 server errors. High-net-worth buyers bounce before viewing VIP listings or agency showreels.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2.5 text-center">
-                      <div className="p-3 rounded-xl bg-white/80 border border-slate-200 shadow-2xs">
-                        <div className="text-[10px] font-mono text-slate-500">PageSpeed</div>
-                        <div className="text-lg font-mono font-bold text-rose-600 mt-0.5">42 / 100</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-white/80 border border-slate-200 shadow-2xs">
-                        <div className="text-[10px] font-mono text-slate-500">Mobile Bounce</div>
-                        <div className="text-lg font-mono font-bold text-rose-600 mt-0.5">64.2%</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-white/80 border border-slate-200 shadow-2xs">
-                        <div className="text-[10px] font-mono text-slate-500">Lead Drops</div>
-                        <div className="text-lg font-mono font-bold text-rose-600 mt-0.5">45%</div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-3.5">
-                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 space-y-1.5">
-                      <div className="flex items-center justify-between font-mono font-bold text-emerald-800">
-                        <span>OPTIMAL PIPELINE VELOCITY</span>
-                        <span>0.68s Sub-Second LCP</span>
-                      </div>
-                      <p className="text-[11px] text-emerald-800 leading-relaxed">
-                        Sub-second Core Web Vitals on cellular connections. Dynamic CMS collections load instantaneously, dispatching qualified leads to your CRM in under 400ms.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2.5 text-center">
-                      <div className="p-3 rounded-xl bg-white/80 border border-slate-200 shadow-2xs">
-                        <div className="text-[10px] font-mono text-slate-500">PageSpeed</div>
-                        <div className="text-lg font-mono font-bold text-emerald-600 mt-0.5">98 / 100</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-white/80 border border-slate-200 shadow-2xs">
-                        <div className="text-[10px] font-mono text-slate-500">Inbound Lift</div>
-                        <div className="text-lg font-mono font-bold text-emerald-600 mt-0.5">+48.5%</div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-white/80 border border-slate-200 shadow-2xs">
-                        <div className="text-[10px] font-mono text-slate-500">CRM Dispatch</div>
-                        <div className="text-lg font-mono font-bold text-emerald-600 mt-0.5">&lt; 400ms</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Live Telemetry Pill Container */}
-                <div className="p-3.5 rounded-2xl bg-[#0f172a] text-emerald-300 font-mono text-[11px] space-y-1.5 shadow-inner">
-                  <div className="flex items-center justify-between text-slate-400 text-[10px] pb-1 border-b border-slate-800">
-                    <span>⚡ TELEMETRY CRAWLER</span>
-                    <span className="text-emerald-400 font-bold">● n8n CLUSTER ONLINE</span>
-                  </div>
-                  <div className="text-slate-300 text-[11px]">
-                    &gt; Target: sovereignhaven.com (Luxury Real Estate)
-                  </div>
-                  <div className="text-sky-300 text-[11px]">
-                    &gt; Score: 96 HOT Target • Lead: Marcus Vance ($2.4M)
-                  </div>
+                <h4 className="text-sm font-bold text-[#17213D]">
+                  Scale Engineering Capacity
+                </h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Direct access to vetted development partners to build bespoke web platforms, SaaS apps, and dynamic CMS collections.
+                </p>
+                <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono">
+                  <span className="text-slate-500 flex items-center gap-1">
+                    <CheckCircle2 size={13} className="text-[#10B981]" />
+                    Zero Hiring Friction
+                  </span>
+                  <span className="font-bold text-[#0EA5E9]">Milestone Vetted</span>
                 </div>
+              </motion.div>
+
+              {/* Card 2: Agencies (Top-Right on Desktop) */}
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="md:absolute md:top-4 md:right-4 lg:right-6 md:w-64 lg:w-72 rounded-2xl backdrop-blur-xl bg-white/90 border border-white/95 p-4 sm:p-5 shadow-[0_12px_35px_rgba(139,92,246,0.12)] hover:shadow-[0_16px_45px_rgba(139,92,246,0.18)] transition-all group"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 rounded-xl bg-purple-50 border border-purple-200 text-[#8B5CF6] flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Briefcase size={18} />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8B5CF6] bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200/60">
+                    FOR AGENCIES
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-[#17213D]">
+                  White-Label Production Bandwidth
+                </h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Wix Studio &amp; Velo engineering powerhouses ready to build client projects under your agency banner with zero margin drain.
+                </p>
+                <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono">
+                  <span className="text-slate-500 flex items-center gap-1">
+                    <Zap size={13} className="text-[#8B5CF6]" />
+                    100% White-Label
+                  </span>
+                  <span className="font-bold text-[#8B5CF6]">120+ Hrs / Mo</span>
+                </div>
+              </motion.div>
+
+              {/* Card 3: Developers (Bottom-Center on Desktop) */}
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                className="md:absolute md:bottom-4 md:left-1/2 md:-translate-x-1/2 md:w-72 lg:w-80 rounded-2xl backdrop-blur-xl bg-white/90 border border-white/95 p-4 sm:p-5 shadow-[0_12px_35px_rgba(16,185,129,0.12)] hover:shadow-[0_16px_45px_rgba(16,185,129,0.18)] transition-all group"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-200 text-[#10B981] flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Code2 size={18} />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#10B981] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                    FOR DEVELOPERS
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-[#17213D]">
+                  High-Impact Strategic Retainers
+                </h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Join a vetted technology partner network. Work on high-value client builds with transparent milestone compensation.
+                </p>
+                <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono">
+                  <span className="text-slate-500 flex items-center gap-1">
+                    <ShieldCheck size={13} className="text-[#10B981]" />
+                    Top 3% Vetted
+                  </span>
+                  <span className="font-bold text-[#10B981]">Long-Term Retainers</span>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Bottom Status Banner inside Hero Canvas */}
+            <div className="relative z-20 mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+                <span>Ecosystem Match Engine Online</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-slate-700 font-bold">Wix Studio • Velo JS • Next.js • n8n</span>
               </div>
+              <button
+                onClick={handleOpenVideoModal}
+                className="flex items-center gap-1.5 text-xs font-bold text-[#8B5CF6] hover:text-[#7C3AED] transition-colors cursor-pointer"
+              >
+                <Play size={12} className="fill-[#8B5CF6]" />
+                <span>Watch 60s Ecosystem Walkthrough</span>
+              </button>
             </div>
           </div>
 
-          {/* Floating 3D-inspired Frosted Glass Micro-Badges (Surrounding Hero Card) */}
+          {/* Floating 3D Micro-Badges around Hero */}
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-6 -left-4 sm:-left-8 p-3 rounded-2xl backdrop-blur-xl bg-white/90 border border-white shadow-[0_12px_35px_rgba(99,102,241,0.15)] flex items-center gap-2.5 z-30"
+            className="absolute -top-6 -left-4 sm:-left-8 p-3 rounded-2xl backdrop-blur-xl bg-white/95 border border-white shadow-[0_12px_35px_rgba(139,92,246,0.15)] hidden sm:flex items-center gap-2.5 z-30"
           >
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-purple-50 text-[#8B5CF6] flex items-center justify-center font-bold">
               <Sparkles size={16} />
             </div>
             <div>
-              <div className="text-[10px] font-mono font-bold uppercase text-slate-500">Conversion Lift</div>
-              <div className="text-xs font-black text-slate-900">+45% Qualified Leads</div>
+              <div className="text-[10px] font-mono font-bold uppercase text-slate-400">Match Accuracy</div>
+              <div className="text-xs font-black text-[#17213D]">99.8% Vetted Fit</div>
             </div>
           </motion.div>
 
           <motion.div
             animate={{ y: [0, 9, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-6 -right-4 sm:-right-6 p-3 rounded-2xl backdrop-blur-xl bg-white/90 border border-white shadow-[0_12px_35px_rgba(16,185,129,0.15)] flex items-center gap-2.5 z-30"
+            className="absolute -bottom-6 -right-4 sm:-right-6 p-3 rounded-2xl backdrop-blur-xl bg-white/95 border border-white shadow-[0_12px_35px_rgba(16,185,129,0.15)] hidden sm:flex items-center gap-2.5 z-30"
           >
-            <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-emerald-50 text-[#10B981] flex items-center justify-center font-bold">
               <Zap size={16} />
             </div>
             <div>
-              <div className="text-[10px] font-mono font-bold uppercase text-slate-500">Pipeline Engine</div>
-              <div className="text-xs font-black text-slate-900">⚡ Live n8n Sync Active</div>
+              <div className="text-[10px] font-mono font-bold uppercase text-slate-400">Deployment Speed</div>
+              <div className="text-xs font-black text-[#17213D]">&lt; 48-Hour Matching</div>
             </div>
           </motion.div>
         </motion.div>
@@ -894,6 +945,8 @@ export default function PublicLandingPage() {
 
       {/* 7. WHO WE SERVE — ASYMMETRIC BENTO GRID (LEFT 1 BOX, RIGHT 2 BOXES UP/DOWN) */}
       <section id="verticals" className="relative z-10 py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-200/80">
+        <div id="businesses" className="-top-28 relative pointer-events-none" />
+        <div id="agencies" className="-top-28 relative pointer-events-none" />
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono font-bold uppercase tracking-widest text-indigo-700">
             Engineered For High-Ticket Operators
@@ -1111,6 +1164,7 @@ export default function PublicLandingPage() {
 
       {/* 8. WHAT WE DELIVER — ARCHITECTURAL TIERED BENTO (TOP PANORAMIC 12-COL + BOTTOM 2 BALANCED 6-COL) */}
       <section id="services" className="relative z-10 py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-200/80">
+        <div id="developers" className="-top-28 relative pointer-events-none" />
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-700">
             Full-Stack Agency Capabilities
@@ -1754,15 +1808,13 @@ export default function PublicLandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start gap-1">
             <div className="flex items-center gap-2">
-              <span className="font-black text-sm tracking-wider text-slate-900">
-                HYBRID<span className="text-indigo-600">.</span>OPS
-              </span>
+              <HybridOpsLogo size="sm" />
               <span className="text-[10px] font-mono text-slate-500 font-bold bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
-                v2.4
+                v2.5
               </span>
             </div>
             <p className="text-slate-500 text-[11px]">
-              Elite Web Engineering &amp; Automated B2B Lead Growth for Ambitious Operators.
+              Strategic Technology &amp; Development Partnerships for Businesses and Digital Agencies.
             </p>
           </div>
 
