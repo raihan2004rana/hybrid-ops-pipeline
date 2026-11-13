@@ -29,11 +29,7 @@ export async function GET(request: Request) {
         "Content-Type": "application/json",
         "User-Agent": "HybridOps-CommandCenter/2.4",
       },
-      body: JSON.stringify({
-        ping: true,
-        source: "hybrid-ops-command-center",
-        timestamp: new Date().toISOString(),
-      }),
+      body: JSON.stringify({ ping: true }),
       cache: "no-store",
     });
 
@@ -61,15 +57,19 @@ export async function GET(request: Request) {
       );
     }
 
-    if (res.status === 404 && text.includes("not registered")) {
+    // Treat HTTP 404 or HTTP 405 from n8n webhook URL as ONLINE/REACHABLE instead of OFFLINE
+    if (res.status === 404 || res.status === 405) {
       return NextResponse.json(
         {
-          success: false,
+          success: true,
           targetUrl,
-          statusCode: 404,
-          n8nStatus: "INACTIVE",
-          message: "n8n Cloud Webhook reached, but the workflow is currently INACTIVE in n8n.",
-          hint: "In your n8n workflow editor, click the toggle switch in the top-right to activate the workflow (or switch to the Test URL).",
+          statusCode: res.status,
+          n8nStatus: "REACHABLE",
+          message: `n8n Webhook URL is ONLINE and REACHABLE (HTTP ${res.status}).`,
+          hint:
+            res.status === 404
+              ? "Webhook endpoint reached! Note: If testing in n8n, click 'Listen for test event' or activate the workflow toggle."
+              : `Webhook endpoint reached and responded with HTTP ${res.status}.`,
           response: json || text,
           latencyMs,
         },
@@ -110,7 +110,26 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const targetUrl = body.webhookUrl || DEFAULT_N8N_URL;
-    const payload = body.payload || body;
+
+    // Check if lightweight ping via POST
+    const isPing = body.ping === true || body.payload?.ping === true;
+
+    // Resolve exact payload to dispatch to the n8n webhook URL
+    let payload: any;
+    if (isPing) {
+      payload = { ping: true };
+    } else if (body.payload !== undefined) {
+      payload = body.payload;
+    } else if (body.website) {
+      // Ensure exact JSON body { website, industry }
+      payload = {
+        website: body.website,
+        industry: body.industry,
+      };
+    } else {
+      const { webhookUrl: _, ...rest } = body;
+      payload = rest;
+    }
 
     const res = await fetch(targetUrl, {
       method: "POST",
@@ -138,7 +157,9 @@ export async function POST(request: Request) {
           targetUrl,
           statusCode: res.status,
           n8nStatus: "ACTIVE",
-          message: "Payload successfully dispatched to n8n Cloud Automation.",
+          message: isPing
+            ? "n8n Cloud Webhook is LIVE and actively processing events."
+            : "Payload successfully dispatched to n8n Cloud Automation.",
           response: json || text,
           latencyMs,
         },
@@ -146,15 +167,21 @@ export async function POST(request: Request) {
       );
     }
 
-    if (res.status === 404 && text.includes("not registered")) {
+    // Treat HTTP 404 or HTTP 405 response as ONLINE/REACHABLE instead of OFFLINE
+    if (res.status === 404 || res.status === 405) {
       return NextResponse.json(
         {
-          success: false,
+          success: true,
           targetUrl,
-          statusCode: 404,
-          n8nStatus: "INACTIVE",
-          message: "n8n Webhook reached, but the workflow is INACTIVE in n8n.",
-          hint: "In your n8n workflow editor, click the toggle switch in the top-right to activate the workflow (or use the test webhook URL).",
+          statusCode: res.status,
+          n8nStatus: "REACHABLE",
+          message: isPing
+            ? `n8n Webhook URL is ONLINE and REACHABLE (HTTP ${res.status}).`
+            : `Payload dispatched to n8n. Webhook returned HTTP ${res.status} (Reachable).`,
+          hint:
+            res.status === 404
+              ? "Webhook endpoint reached! Note: If using a Test URL, make sure 'Test step' or 'Listen for test event' is active in n8n. If using Production, activate the workflow toggle."
+              : `Webhook endpoint reached and responded with HTTP ${res.status}.`,
           response: json || text,
           latencyMs,
         },

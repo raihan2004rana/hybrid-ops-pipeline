@@ -132,7 +132,7 @@ export interface WebhookLog {
   id: string;
   timestamp: string;
   event: string;
-  status: "SUCCESS" | "FAILED" | "QUEUED";
+  status: "SUCCESS" | "FAILED" | "QUEUED" | "REACHABLE";
   companyName: string;
   score: number;
   latencyMs: number;
