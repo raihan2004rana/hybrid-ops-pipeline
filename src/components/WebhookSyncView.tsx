@@ -118,7 +118,7 @@ export function WebhookSyncView({
   const [n8nUrl, setN8nUrl] = useState(PRODUCTION_N8N_URL);
   const [isTestMode, setIsTestMode] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<
-    "IDLE" | "CHECKING" | "ACTIVE" | "REACHABLE" | "INACTIVE" | "ERROR"
+    "IDLE" | "CHECKING" | "CONNECTED" | "ACTIVE" | "REACHABLE" | "INACTIVE" | "ERROR"
   >("IDLE");
   const [lastStatusCode, setLastStatusCode] = useState<number | null>(null);
   const [connectionHint, setConnectionHint] = useState<string | null>(null);
@@ -158,26 +158,36 @@ export function WebhookSyncView({
     const target = urlToCheck || n8nUrl;
 
     try {
-      const res = await fetch(`/api/n8n/trigger?url=${encodeURIComponent(target)}`, {
-        method: "GET",
+      // Route through server-side Netlify API route (/api/n8n/ping) to avoid browser CORS failure
+      const res = await fetch("/api/n8n/ping", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ webhookUrl: target }),
         cache: "no-store",
       });
       const data = await res.json();
       setLatency(data.latencyMs ?? 0);
       setLastStatusCode(data.statusCode ?? null);
 
-      if (data.n8nStatus === "ACTIVE" || data.statusCode === 200) {
-        setConnectionStatus("ACTIVE");
-      } else if (
+      // If it returns HTTP 200 (like {"status":"ignored"}) or 404/405, mark as ONLINE / CONNECTED in green
+      if (
+        data.n8nStatus === "CONNECTED" ||
+        data.n8nStatus === "ACTIVE" ||
         data.n8nStatus === "REACHABLE" ||
+        data.statusCode === 200 ||
         data.statusCode === 404 ||
-        data.statusCode === 405
+        data.statusCode === 405 ||
+        data.success
       ) {
-        setConnectionStatus("REACHABLE");
-        setConnectionHint(
-          data.hint ||
-            `n8n Webhook responded with HTTP ${data.statusCode}. Server is ONLINE and REACHABLE.`
-        );
+        setConnectionStatus("CONNECTED");
+        if (data.statusCode === 404) {
+          setConnectionHint(
+            data.hint ||
+              `n8n Webhook endpoint reached (HTTP 404). Server is ONLINE / CONNECTED.`
+          );
+        } else if (data.hint) {
+          setConnectionHint(data.hint);
+        }
       } else if (data.n8nStatus === "INACTIVE") {
         setConnectionStatus("INACTIVE");
         setConnectionHint(
@@ -190,16 +200,18 @@ export function WebhookSyncView({
 
       if (isManual) {
         const isOnline =
+          data.n8nStatus === "CONNECTED" ||
           data.n8nStatus === "ACTIVE" ||
           data.n8nStatus === "REACHABLE" ||
           data.statusCode === 200 ||
           data.statusCode === 404 ||
-          data.statusCode === 405;
+          data.statusCode === 405 ||
+          data.success;
 
         onAddLog({
           id: `log-${Date.now()}-ping`,
           timestamp: new Date().toLocaleTimeString(),
-          event: `PING n8n Webhook (HTTP ${data.statusCode || (data.n8nStatus === "ACTIVE" ? 200 : 404)})`,
+          event: `PING n8n Webhook (${isOnline ? "ONLINE / CONNECTED" : "OFFLINE"} HTTP ${data.statusCode || 200})`,
           status: isOnline ? "SUCCESS" : "FAILED",
           companyName: target.replace(/^https?:\/\//i, "").split("/")[0] || "n8n Cloud Webhook",
           score: 0,
@@ -209,6 +221,7 @@ export function WebhookSyncView({
             targetUrl: target,
             statusCode: data.statusCode,
             n8nStatus: data.n8nStatus,
+            response: data.response,
           },
         });
       }
@@ -528,19 +541,11 @@ export function WebhookSyncView({
               </span>
             )}
 
-            {connectionStatus === "ACTIVE" && (
+            {(connectionStatus === "CONNECTED" || connectionStatus === "ACTIVE" || connectionStatus === "REACHABLE") && (
               <span className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-2 shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                 <ShieldCheck size={14} className="text-emerald-700" />
-                ONLINE (HTTP {lastStatusCode || 200}) • {latency}ms
-              </span>
-            )}
-
-            {connectionStatus === "REACHABLE" && (
-              <span className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-2 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                <ShieldCheck size={14} className="text-emerald-700" />
-                ONLINE / REACHABLE (HTTP {lastStatusCode || 404}) • {latency}ms
+                ONLINE / CONNECTED (HTTP {lastStatusCode || 200}) • {latency}ms
               </span>
             )}
 
@@ -612,7 +617,7 @@ export function WebhookSyncView({
           </div>
         </div>
 
-        {connectionStatus === "REACHABLE" && connectionHint && (
+        {(connectionStatus === "CONNECTED" || connectionStatus === "REACHABLE") && connectionHint && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -620,7 +625,7 @@ export function WebhookSyncView({
           >
             <ShieldCheck size={16} className="text-emerald-700 shrink-0 mt-0.5" />
             <div>
-              <strong className="font-bold">n8n Webhook Online &amp; Reachable (HTTP {lastStatusCode || 404}):</strong> The webhook endpoint is responding.
+              <strong className="font-bold">n8n Webhook Online &amp; Connected (HTTP {lastStatusCode || 200}):</strong> The webhook endpoint is actively responding.
               <div className="mt-1 text-emerald-800">
                 {connectionHint}
               </div>
