@@ -35,7 +35,7 @@ export async function GET(request: Request) {
       serverUrl: origin,
       acceptedMethod: "POST",
       format: "application/json",
-      description: "Accepts incoming B2B agency and real estate leads from n8n AI Lead Qualification workflows.",
+      description: "Accepts incoming B2B agency and real estate leads from n8n AI Lead Qualification workflows and public website audit inquiries.",
       schema: {
         n8nAIFormat: {
           company_name: "Apex Horizon Residential",
@@ -53,6 +53,7 @@ export async function GET(request: Request) {
         },
       },
       recentEventsCount: webhookEvents.length,
+      recentLeads: webhookEvents.slice(0, 25).map((e) => e.lead),
     },
     {
       headers: {
@@ -66,13 +67,31 @@ export async function POST(request: Request) {
   try {
     const body: N8nAILeadPayload = await request.json();
 
-    // 1. Resolve Company Name (support both n8n AI snake_case and camelCase)
-    const companyName = body.company_name || body.companyName;
+    // 1. Resolve Company Name (support n8n AI snake_case, camelCase, or derive from website/domain)
+    let companyName = body.company_name || body.companyName;
+    if (!companyName && body.website) {
+      try {
+        const rawDomain = body.website
+          .replace(/^https?:\/\//i, "")
+          .replace(/^www\./i, "")
+          .split(/[\/?#]/)[0]
+          .split(".")[0];
+        if (rawDomain && rawDomain.length > 1) {
+          companyName = rawDomain.charAt(0).toUpperCase() + rawDomain.slice(1).replace(/[-_]/g, " ");
+        }
+      } catch {
+        // fallback
+      }
+    }
+    if (!companyName && (body.decision_maker || body.decisionMaker?.name)) {
+      companyName = `${body.decision_maker || body.decisionMaker?.name}'s Brand`;
+    }
+
     if (!companyName) {
       return NextResponse.json(
         {
           success: false,
-          error: "Missing required company identifier. Provide 'company_name' or 'companyName'.",
+          error: "Missing required company identifier. Provide 'company_name', 'companyName', or 'website'.",
         },
         {
           status: 400,

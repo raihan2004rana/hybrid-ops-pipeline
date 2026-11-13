@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HYBRID.OPS | Vibrant Aurora Glassmorphic Pipeline Command Center",
+  title: "HYBRID.OPS | High-Converting Agency & Automated Growth Infrastructure",
   description:
-    "Ultra-luxurious, colorful, modern B2B Lead & Pipeline Command Center with real-time n8n webhook ingestion, hot lead radar, and AI outreach studio.",
+    "Turn your static website into a 24/7 client-acquisition machine. Bespoke Wix Studio engineering, Velo development, and automated B2B lead generation pipelines for real estate, creative agencies, and high-ticket brands.",
 };
 
 export default function RootLayout({
@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-[#f8fafc] text-slate-900 antialiased selection:bg-violet-500/20 selection:text-violet-900 min-h-screen">
+    <html lang="en" className="scroll-smooth">
+      <body className="bg-[#09090b] text-white antialiased selection:bg-indigo-500/30 selection:text-indigo-200 min-h-screen">
         {children}
       </body>
     </html>

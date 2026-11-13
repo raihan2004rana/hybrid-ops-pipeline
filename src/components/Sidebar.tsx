@@ -14,7 +14,11 @@ import {
   ShieldCheck,
   Volume2,
   VolumeX,
+  LogOut,
+  Globe,
+  ExternalLink,
 } from "lucide-react";
+import Link from "next/link";
 import { soundEngine } from "@/lib/audioAlert";
 
 export type NavTabId =
@@ -34,6 +38,7 @@ interface SidebarProps {
   totalLeadsCount: number;
   soundEnabled: boolean;
   onToggleSound: () => void;
+  onLogout?: () => void;
 }
 
 export function Sidebar({
@@ -44,6 +49,7 @@ export function Sidebar({
   hotLeadsCount,
   soundEnabled,
   onToggleSound,
+  onLogout,
 }: SidebarProps) {
   const navItems = [
     {
@@ -261,6 +267,46 @@ export function Sidebar({
             </div>
           </div>
         )}
+
+        {/* Public Site & Admin Logout Action Buttons */}
+        <div className="pt-1 border-t border-slate-200/60 space-y-1">
+          <Link
+            href="/"
+            className={`w-full flex items-center rounded-xl p-2 text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/80 transition-all text-xs font-semibold ${
+              isCollapsed ? "justify-center" : "justify-between"
+            }`}
+            title="Return to Public Agency Website"
+          >
+            <div className="flex items-center gap-2">
+              <Globe size={15} />
+              {!isCollapsed && <span>Public Website</span>}
+            </div>
+            {!isCollapsed && <ExternalLink size={12} className="text-slate-400" />}
+          </Link>
+
+          {onLogout && (
+            <button
+              onClick={() => {
+                soundEngine.playGlassClick();
+                onLogout();
+              }}
+              className={`w-full flex items-center rounded-xl p-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50/80 transition-all text-xs font-semibold cursor-pointer ${
+                isCollapsed ? "justify-center" : "justify-between"
+              }`}
+              title="Logout from Admin Command Center"
+            >
+              <div className="flex items-center gap-2">
+                <LogOut size={15} />
+                {!isCollapsed && <span>Sign Out</span>}
+              </div>
+              {!isCollapsed && (
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-rose-500 bg-rose-100/80 px-1.5 py-0.5 rounded">
+                  Lock
+                </span>
+              )}
+            </button>
+          )}
+        </div>
       </div>
     </motion.aside>
   );

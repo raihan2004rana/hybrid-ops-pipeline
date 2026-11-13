@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #09090b;
+  --foreground: #f8fafc;
 }
 
 body {
@@ -22,20 +22,28 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.8);
+  background: rgba(9, 9, 11, 0.95);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ec4899, #8b5cf6, #06b6d4);
+  background: linear-gradient(180deg, #6366f1, #8b5cf6, #10b981);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #f43f5e, #7c3aed, #0284c7);
+  background: linear-gradient(180deg, #4f46e5, #7c3aed, #059669);
 }
 
 /* Vibrant Colorful Glass Surface Utilities */
 @layer components {
+  .obsidian-card {
+    @apply backdrop-blur-2xl bg-zinc-900/80 border border-white/[0.08] shadow-[0_10px_35px_rgba(0,0,0,0.5)];
+  }
+
+  .obsidian-card-hover {
+    @apply hover:border-indigo-500/50 hover:shadow-[0_15px_45px_rgba(99,102,241,0.15)] transition-all duration-300;
+  }
+
   .glass-panel {
     @apply backdrop-blur-2xl bg-white/80 border border-white/95 shadow-[0_12px_40px_0_rgba(99,102,241,0.08),inset_0_1px_2px_0_rgba(255,255,255,1)];
   }
