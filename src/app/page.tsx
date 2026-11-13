@@ -892,7 +892,7 @@ export default function PublicLandingPage() {
         </div>
       </section>
 
-      {/* 7. WHO WE SERVE — INTERACTIVE BENTO GRID (LIGHT MODE) */}
+      {/* 7. WHO WE SERVE — ASYMMETRIC BENTO GRID (LEFT 1 BOX, RIGHT 2 BOXES UP/DOWN) */}
       <section id="verticals" className="relative z-10 py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-200/80">
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono font-bold uppercase tracking-widest text-indigo-700">
@@ -906,124 +906,210 @@ export default function PublicLandingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Vertical 1: Luxury Real Estate */}
-          <div className="rounded-3xl backdrop-blur-xl bg-white/75 border border-white/90 hover:border-indigo-300 p-6 md:p-8 transition-all hover:shadow-[0_20px_50px_rgba(99,102,241,0.1)] flex flex-col justify-between space-y-6 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Building2 size={24} />
-              </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-700 font-bold">
+        {/* Asymmetric Layout: Left 1 Box (Large/Tall) + Right 2 Boxes (Up and Down) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Left Side: 1 Large Box (Luxury & Boutique Real Estate) */}
+          <div className="lg:col-span-7 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 p-6 md:p-8 flex flex-col justify-between space-y-6 shadow-[0_20px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_25px_60px_rgba(99,102,241,0.14)] hover:border-indigo-300 transition-all duration-300 group">
+            <div className="space-y-5">
+              {/* Card Header */}
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Building2 size={24} />
+                </div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-700 font-bold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/70">
                   US • CANADA • AUSTRALIA
                 </span>
-                <h3 className="text-xl font-bold text-slate-900">
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-black text-slate-900 tracking-tight">
                   Luxury &amp; Boutique Real Estate
                 </h3>
+                <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                  Dynamic CMS property portals, Matterport 3D speed tuning, and high-net-worth buyer capture flows without mobile Safari crashes or clunky IDX iFrames.
+                </p>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Dynamic CMS property portals, Matterport 3D speed tuning, and high-net-worth buyer capture flows without mobile Safari crashes.
-              </p>
-              <ul className="space-y-2 text-xs text-slate-700">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
+
+              {/* Rich Relevant Visual Container */}
+              <div className="relative h-60 sm:h-72 rounded-2xl overflow-hidden border border-slate-200/80 shadow-inner group/img">
+                <img
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+                  alt="Luxury Modern Architecture & Real Estate Portal Architecture"
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
+                
+                {/* Floating Glass Badges */}
+                <div className="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md text-white text-[11px] font-mono px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/20 shadow-md">
+                  <Sparkles size={12} className="text-amber-400" />
+                  <span>VIP Private Showing Funnel</span>
+                </div>
+                
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                  <div className="bg-white/95 backdrop-blur-md text-slate-900 text-[11px] font-mono font-bold px-3 py-1.5 rounded-lg border border-white/80 shadow-md flex items-center gap-1.5">
+                    <Zap size={12} className="text-emerald-600 fill-emerald-600" />
+                    <span>0.68s Sub-Second LCP</span>
+                  </div>
+                  <span className="text-xs font-mono text-white/90 bg-slate-900/60 px-2.5 py-1 rounded-md backdrop-blur-sm">
+                    Dynamic CMS Collection
+                  </span>
+                </div>
+              </div>
+
+              {/* Feature Checklist */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                <div className="flex items-center gap-2 text-xs text-slate-700">
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                   <span>VIP private showing request funnels</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
-                  <span>Sub-second hero video &amp; architectural galleries</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
-                  <span>Instant SMS lead routing for managing brokers</span>
-                </li>
-              </ul>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-700">
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                  <span>Sub-second hero video &amp; galleries</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-700">
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                  <span>Instant SMS lead routing to brokers</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-700">
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                  <span>Zero layout shift on mobile Safari</span>
+                </div>
+              </div>
             </div>
+
+            {/* Bottom Outcome Bar */}
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
               <span className="text-slate-500">Typical Deal Protected</span>
-              <span className="text-emerald-700 font-bold">$2.5M+ Property</span>
+              <span className="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200/60">
+                $2.5M+ Property Value
+              </span>
             </div>
           </div>
 
-          {/* Vertical 2: Creative & Digital Agencies */}
-          <div className="rounded-3xl backdrop-blur-xl bg-white/75 border border-white/90 hover:border-violet-300 p-6 md:p-8 transition-all hover:shadow-[0_20px_50px_rgba(139,92,246,0.1)] flex flex-col justify-between space-y-6 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-violet-50 border border-violet-200 text-violet-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Briefcase size={24} />
-              </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-violet-700 font-bold">
-                  US • UNITED KINGDOM
-                </span>
-                <h3 className="text-xl font-bold text-slate-900">
-                  Creative &amp; Digital Agencies
-                </h3>
-              </div>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                White-label Wix Studio &amp; custom Velo coding bandwidth. When founders run out of engineering hours or need automated outbound pipelines to win enterprise retainers.
-              </p>
-              <ul className="space-y-2 text-xs text-slate-700">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-violet-600 shrink-0" />
-                  <span>White-label Wix Studio dev bandwidth</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-violet-600 shrink-0" />
-                  <span>Automated B2B prospect discovery pipeline</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-violet-600 shrink-0" />
-                  <span>AI personalized audit teardowns generated</span>
-                </li>
-              </ul>
-            </div>
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-500">Agency Bandwidth Saved</span>
-              <span className="text-violet-700 font-bold">120+ Hours / Mo</span>
-            </div>
-          </div>
+          {/* Right Side: 2 Boxes (Up and Down) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            {/* Box 1 (Up): Creative & Digital Agencies */}
+            <div className="flex-1 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 p-6 md:p-7 flex flex-col justify-between space-y-4 shadow-[0_16px_40px_rgba(139,92,246,0.06)] hover:shadow-[0_20px_50px_rgba(139,92,246,0.12)] hover:border-violet-300 transition-all duration-300 group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-violet-50 border border-violet-200 text-violet-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Briefcase size={20} />
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-violet-700 font-bold bg-violet-50 px-2.5 py-0.5 rounded-full border border-violet-200/60">
+                    US • UNITED KINGDOM
+                  </span>
+                </div>
 
-          {/* Vertical 3: High-Ticket Local Service Brands */}
-          <div className="rounded-3xl backdrop-blur-xl bg-white/75 border border-white/90 hover:border-cyan-300 p-6 md:p-8 transition-all hover:shadow-[0_20px_50px_rgba(6,182,212,0.1)] flex flex-col justify-between space-y-6 group">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Target size={24} />
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">
+                    Creative &amp; Digital Agencies
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    White-label Wix Studio &amp; custom Velo coding bandwidth. When founders run out of engineering hours or need automated outbound pipelines.
+                  </p>
+                </div>
+
+                {/* Relevant Image Banner */}
+                <div className="relative h-32 rounded-xl overflow-hidden border border-slate-200/80 shadow-sm group/thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80"
+                    alt="Creative Agency Digital Workflow & Wix Studio Bandwidth"
+                    className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-white bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
+                      White-Label Velo Bandwidth
+                    </span>
+                    <span className="text-[10px] font-mono text-violet-200 bg-violet-950/70 px-2 py-0.5 rounded backdrop-blur-sm">
+                      AI Teardown Pitch
+                    </span>
+                  </div>
+                </div>
+
+                <ul className="space-y-1.5 text-xs text-slate-700">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-violet-600 shrink-0" />
+                    <span>White-label Wix Studio development</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-violet-600 shrink-0" />
+                    <span>Automated B2B prospect discovery pipeline</span>
+                  </li>
+                </ul>
               </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-800 font-bold">
-                  LOCAL LEAD MACHINES
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">Bandwidth Saved</span>
+                <span className="text-violet-700 font-bold bg-violet-50 px-2 py-0.5 rounded">
+                  120+ Hours / Mo
                 </span>
-                <h3 className="text-xl font-bold text-slate-900">
-                  High-Ticket Local Services
-                </h3>
               </div>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Architectural studios, private wealth advisory, and cosmetic surgery. Conversion-focused local SEO websites with frictionless mobile booking.
-              </p>
-              <ul className="space-y-2 text-xs text-slate-700">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-cyan-700 shrink-0" />
-                  <span>Instant consultation booking engine</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-cyan-700 shrink-0" />
-                  <span>Local search intent conversion landing pages</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-cyan-700 shrink-0" />
-                  <span>Zero missed mobile form submissions</span>
-                </li>
-              </ul>
             </div>
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-500">Speed to Response</span>
-              <span className="text-cyan-800 font-bold">&lt; 60 Seconds</span>
+
+            {/* Box 2 (Down): High-Ticket Local Service Brands */}
+            <div className="flex-1 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 p-6 md:p-7 flex flex-col justify-between space-y-4 shadow-[0_16px_40px_rgba(6,182,212,0.06)] hover:shadow-[0_20px_50px_rgba(6,182,212,0.12)] hover:border-cyan-300 transition-all duration-300 group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <Target size={20} />
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-800 font-bold bg-cyan-50 px-2.5 py-0.5 rounded-full border border-cyan-200/60">
+                    LOCAL LEAD MACHINES
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">
+                    High-Ticket Local Services
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Architectural studios, private wealth advisory, and cosmetic surgery. Conversion-focused local SEO with frictionless booking.
+                  </p>
+                </div>
+
+                {/* Relevant Image Banner */}
+                <div className="relative h-32 rounded-xl overflow-hidden border border-slate-200/80 shadow-sm group/thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+                    alt="High-Ticket Local Service Consultation Space"
+                    className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-white bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-sm">
+                      Frictionless Booking
+                    </span>
+                    <span className="text-[10px] font-mono text-cyan-200 bg-cyan-950/70 px-2 py-0.5 rounded backdrop-blur-sm">
+                      Local Intent SEO
+                    </span>
+                  </div>
+                </div>
+
+                <ul className="space-y-1.5 text-xs text-slate-700">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-cyan-700 shrink-0" />
+                    <span>Instant consultation booking engine</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-cyan-700 shrink-0" />
+                    <span>Zero missed mobile form submissions</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">Speed to Response</span>
+                <span className="text-cyan-800 font-bold bg-cyan-50 px-2 py-0.5 rounded">
+                  &lt; 60 Seconds
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 8. WHAT WE DELIVER (CORE CAPABILITIES) */}
+      {/* 8. WHAT WE DELIVER — ARCHITECTURAL TIERED BENTO (TOP PANORAMIC 12-COL + BOTTOM 2 BALANCED 6-COL) */}
       <section id="services" className="relative z-10 py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-200/80">
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-16">
           <div className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-700">
@@ -1037,55 +1123,229 @@ export default function PublicLandingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Pillar 1 */}
-          <div className="p-8 rounded-3xl backdrop-blur-xl bg-white/75 border border-white/95 shadow-[0_16px_40px_rgba(99,102,241,0.06)] space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center font-mono font-bold text-lg">
-              01
-            </div>
-            <h3 className="text-xl font-bold text-slate-900">
-              High-Converting Website Engineering
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Bespoke Wix Studio builds, pixel-perfect responsive layouts, custom Velo JavaScript logic, and dynamic CMS collections. You get full control to edit text and listings while we guarantee sub-second speed on all devices.
-            </p>
-            <div className="pt-2 text-xs font-mono text-indigo-700 font-bold flex items-center gap-1.5">
-              <Code2 size={14} />
-              <span>Wix Studio • Velo JS • Sub-second CDN</span>
+        {/* Distinct Layout: 1 Panoramic Flagship Card on Top + 2 Dual Balanced Cards Below */}
+        <div className="space-y-6">
+          {/* Top Flagship Card (Pillar 01: High-Converting Website Engineering) */}
+          <div className="p-6 sm:p-8 md:p-10 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 shadow-[0_20px_50px_rgba(99,102,241,0.08)] hover:shadow-[0_25px_60px_rgba(99,102,241,0.12)] hover:border-indigo-300 transition-all duration-300 group">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Left Column Content */}
+              <div className="lg:col-span-6 space-y-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center font-mono font-bold text-lg">
+                    01
+                  </div>
+                  <div className="text-xs font-mono text-indigo-700 font-bold uppercase tracking-wider bg-indigo-50/80 px-3 py-1 rounded-full border border-indigo-200/60">
+                    Flagship Web Architecture
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    High-Converting Website Engineering
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Bespoke Wix Studio builds, pixel-perfect responsive layouts, custom Velo JavaScript logic, and dynamic CMS collections. You get full control to edit text and listings while we guarantee sub-second speed on all devices.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                    <span>Dynamic CMS Collections</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                    <span>Sub-second Edge CDN Delivery</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                    <span>Custom Velo Calculators &amp; Filters</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                    <span>Mobile Safari 60fps Smoothness</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono font-semibold text-slate-600">
+                  <span className="bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                    Wix Studio
+                  </span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                    Velo JS
+                  </span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                    Next.js CDN
+                  </span>
+                  <span className="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-lg border border-emerald-200 font-bold flex items-center gap-1">
+                    <Zap size={12} className="fill-emerald-600" />
+                    LCP &lt; 0.8s
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Column Visual / Browser Preview */}
+              <div className="lg:col-span-6">
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl bg-slate-900 group/mockup">
+                  {/* Mockup Top Window Bar */}
+                  <div className="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <span className="text-[11px] font-mono text-slate-400">
+                      https://studio.hybrid-ops.com
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
+                      LIVE 60FPS
+                    </span>
+                  </div>
+
+                  {/* High-Res Visual */}
+                  <div className="relative h-64 sm:h-72">
+                    <img
+                      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+                      alt="High-Converting Website Engineering Workspace"
+                      className="w-full h-full object-cover group-hover/mockup:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+
+                    {/* Floating Badges */}
+                    <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md text-slate-900 text-xs font-mono font-bold px-3 py-1.5 rounded-lg border border-white/80 shadow-lg flex items-center gap-1.5">
+                      <Sparkles size={13} className="text-indigo-600" />
+                      <span>Pixel-Perfect Responsive Engine</span>
+                    </div>
+
+                    <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md text-emerald-400 text-xs font-mono font-bold px-3 py-1.5 rounded-lg border border-emerald-500/30 shadow-lg">
+                      +45% Conversion Lift
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Pillar 2 */}
-          <div className="p-8 rounded-3xl backdrop-blur-xl bg-white/75 border border-white/95 shadow-[0_16px_40px_rgba(139,92,246,0.06)] space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-violet-50 border border-violet-200 text-violet-700 flex items-center justify-center font-mono font-bold text-lg">
-              02
-            </div>
-            <h3 className="text-xl font-bold text-slate-900">
-              Automated Lead Generation Pipelines
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Automated crawlers powered by n8n that identify website performance bottlenecks across your target accounts, locate decision-makers on LinkedIn, and formulate high-converting, personalized teardown pitches.
-            </p>
-            <div className="pt-2 text-xs font-mono text-violet-700 font-bold flex items-center gap-1.5">
-              <Cpu size={14} />
-              <span>n8n Cloud Cluster • AI Discovery • Sonar Radar</span>
-            </div>
-          </div>
+          {/* Bottom Dual Balanced Cards (Pillars 02 & 03) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Pillar 02: Automated Lead Generation Pipelines */}
+            <div className="p-6 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 shadow-[0_16px_40px_rgba(139,92,246,0.06)] hover:shadow-[0_20px_50px_rgba(139,92,246,0.12)] hover:border-violet-300 transition-all duration-300 flex flex-col justify-between space-y-6 group">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-violet-50 border border-violet-200 text-violet-700 flex items-center justify-center font-mono font-bold text-lg">
+                    02
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-violet-700 bg-violet-50 px-3 py-1 rounded-full border border-violet-200">
+                    Outbound &amp; Inbound Ingestion
+                  </span>
+                </div>
 
-          {/* Pillar 3 */}
-          <div className="p-8 rounded-3xl backdrop-blur-xl bg-white/75 border border-white/95 shadow-[0_16px_40px_rgba(16,185,129,0.06)] space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-mono font-bold text-lg">
-              03
+                {/* Card Visual Banner */}
+                <div className="relative h-44 rounded-2xl overflow-hidden border border-slate-200/80 shadow-inner group/subimg">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                    alt="Automated Lead Generation Pipelines & n8n Telemetry"
+                    className="w-full h-full object-cover group-hover/subimg:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/10 to-transparent" />
+                  
+                  <div className="absolute bottom-3 left-3 bg-violet-950/80 backdrop-blur-md text-violet-200 text-[11px] font-mono px-2.5 py-1 rounded-md border border-violet-400/30 flex items-center gap-1.5">
+                    <Cpu size={12} className="text-violet-400" />
+                    <span>n8n Cloud Webhook Engine Active</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">
+                    Automated Lead Generation Pipelines
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                    Automated crawlers powered by n8n that identify website performance bottlenecks across target accounts, locate decision-makers, and formulate high-converting personalized pitches.
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-700">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-violet-600 shrink-0" />
+                    <span>Target account crawling &amp; bottleneck detection</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-violet-600 shrink-0" />
+                    <span>Decision-maker discovery &amp; personalized pitches</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-violet-600 shrink-0" />
+                    <span>Instant sync to Hot Lead Radar &amp; Outreach Studio</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">Pipeline Engine</span>
+                <span className="text-violet-700 font-bold bg-violet-50 px-2.5 py-1 rounded">
+                  1,200+ Qualified / Mo
+                </span>
+              </div>
             </div>
-            <h3 className="text-xl font-bold text-slate-900">
-              Dedicated Growth Partner (&ldquo;Extra Hand&rdquo;)
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Never worry about broken mobile layouts, slow image loading, or leaky forms again. We function as your senior technical wingman, continuously optimizing funnels and implementing custom features.
-            </p>
-            <div className="pt-2 text-xs font-mono text-emerald-700 font-bold flex items-center gap-1.5">
-              <ShieldCheck size={14} />
-              <span>Continuous QA • Conversion Tuning • White-Label</span>
+
+            {/* Pillar 03: Dedicated Technical Growth Partner ("Extra Hand") */}
+            <div className="p-6 sm:p-8 rounded-3xl backdrop-blur-xl bg-white/80 border border-white/95 shadow-[0_16px_40px_rgba(16,185,129,0.06)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.12)] hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between space-y-6 group">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-mono font-bold text-lg">
+                    03
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    Senior Engineering Wingman
+                  </span>
+                </div>
+
+                {/* Card Visual Banner */}
+                <div className="relative h-44 rounded-2xl overflow-hidden border border-slate-200/80 shadow-inner group/subimg">
+                  <img
+                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+                    alt="Dedicated Technical Growth Partner Hands-on Execution"
+                    className="w-full h-full object-cover group-hover/subimg:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/10 to-transparent" />
+                  
+                  <div className="absolute bottom-3 left-3 bg-emerald-950/80 backdrop-blur-md text-emerald-200 text-[11px] font-mono px-2.5 py-1 rounded-md border border-emerald-400/30 flex items-center gap-1.5">
+                    <ShieldCheck size={12} className="text-emerald-400" />
+                    <span>Dedicated Slack &amp; WhatsApp Channel</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">
+                    Dedicated Growth Partner (&ldquo;Extra Hand&rdquo;)
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                    Never worry about broken mobile layouts, slow image loading, or leaky forms again. We function as your senior technical wingman, continuously optimizing funnels and implementing custom features.
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-700">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
+                    <span>Continuous QA, Lighthouse audits &amp; speed fixes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
+                    <span>A/B funnel split tests &amp; conversion tuning</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
+                    <span>White-label agency execution under your brand</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">Service SLA</span>
+                <span className="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded">
+                  &lt; 2-Hour SLA Resolution
+                </span>
+              </div>
             </div>
           </div>
         </div>
